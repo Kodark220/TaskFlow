@@ -1123,9 +1123,14 @@ function AgentProfiles({ agents, refreshData }) {
                   {agent.active ? 'Active' : 'Idle'}
                 </Badge>
                 <div style={{ flex: 1 }} />
-                <Button variant="ghost" style={{ padding: '6px 12px', fontSize: 12, fontWeight: 500 }}>
+                <Button 
+                  onClick={() => window.open(`${MANTLE_SCAN}/address/${agent.address}`, '_blank')}
+                  variant="ghost" 
+                  style={{ padding: '6px 12px', fontSize: 12, fontWeight: 500 }}
+                >
                   View Profile <ArrowUpRight size={12} />
                 </Button>
+
               </div>
             </Card>
           </motion.div>
