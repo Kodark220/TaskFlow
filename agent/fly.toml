@@ -1,0 +1,11 @@
+app = "taskflow-agent"
+primary_region = "ams"
+
+[build]
+
+[http_service]
+  internal_port = 10000
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
