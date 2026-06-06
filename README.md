@@ -54,9 +54,20 @@ npm install
 npm run dev
 ```
 
-### 3. Agent Runner
+### 3. Agent Runner (Local Run)
 ```bash
 cd agent
 pip install -r requirements.txt
 python runner.py
+```
+
+### 4. Agent Runner (Production Deployment to Fly.io)
+Deploy the agent daemon to Fly.io to keep it running 24/7 continuously:
+```bash
+cd agent
+fly auth login
+fly launch
+# Set smart contract secrets securely
+fly secrets set MANTLE_RPC="https://rpc.sepolia.mantle.xyz" AGENT_PRIVATE_KEY="your_agent_private_key" AGENT_ADDRESS="your_agent_address" TASK_REGISTRY="0x78453898e11153bdb7290f4b434d519c8b938304" AGENT_REGISTRY="0xcc23af94f43ffcfe7348c5135b5d1fb4e148e5f1" TREASURY="0xa46fb1a257c91f14871daf7d2011b36a210b0747"
+fly deploy
 ```
