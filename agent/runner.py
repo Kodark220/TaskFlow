@@ -10,8 +10,11 @@ import json
 import time
 import hashlib
 import logging
+import threading
 from typing import Optional
 from datetime import datetime
+from flask import Flask
+
 
 # Web3
 from web3 import Web3
@@ -368,6 +371,33 @@ class AgentPayrollRunner:
         time.sleep(POLL_INTERVAL)
 
 
+# --- Minimal Flask server for Render free web service support ---
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return {
+        "status": "active",
+        "agent_address": AGENT_ADDRESS or "Not Configured",
+        "chain_id": 5003, # Mantle Sepolia
+        "message": "TaskFlow AI Agent Runner is alive!"
+    }, 200
+
+def start_web_server():
+    """Runs a minimal web server to keep Render's free tier happy."""
+    port = int(os.getenv("PORT", "10000"))
+    log.info(f"🌐 Starting dummy web server on port {port}...")
+    import sys
+    # Suppress flask CLI server banner
+    try:
+        cli = sys.modules['flask.cli']
+        cli.show_server_banner = lambda *x: None
+    except Exception:
+        pass
+    
+    app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
+
+
 # --- Byreal Skills CLI Entry Point ---
 def main():
     """Entry point for the Byreal Skills CLI agent."""
@@ -387,8 +417,13 @@ def main():
         log.error("Set them in .env or export before running.")
         return
 
+    # Start the dummy web server thread for Render free web service
+    web_thread = threading.Thread(target=start_web_server, daemon=True)
+    web_thread.start()
+
     runner = AgentPayrollRunner()
     runner.run_loop()
+
 
 
 if __name__ == "__main__":
