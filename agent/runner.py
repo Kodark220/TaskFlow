@@ -37,7 +37,7 @@ TASK_REGISTRY_ADDR = os.getenv("TASK_REGISTRY", "")
 AGENT_REGISTRY_ADDR = os.getenv("AGENT_REGISTRY", "")
 TREASURY_ADDR = os.getenv("TREASURY", "")
 
-POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", "120"))  # seconds
+POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", "10"))  # seconds
 MIN_BOUNTY = int(os.getenv("MIN_BOUNTY", "0"))  # minimum bounty in wei
 
 # --- ABIs (minimal — only what we need) ---

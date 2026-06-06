@@ -470,11 +470,9 @@ function Dashboard() {
         setDataSource('chain')
         console.log(`✅ Loaded ${chainTasks.length} tasks, ${(chainAgents||[]).length} agents from Mantle Sepolia`)
       } else {
-        // Fallback to demo data
-        const d = generateDemoData()
-        setTasks(d.tasks); setFeed(d.feed); setPayments(d.payments); setAgents(d.agents)
-        setDataSource('demo')
-        console.log('📋 No on-chain data found, using demo data')
+        // Keep in chain mode, don't load fake demo data
+        setDataSource('chain')
+        console.log('📋 Chain connection error, keeping chain mode')
       }
     }
 
