@@ -1,0 +1,41 @@
+# Hardhat & Solidity
+/artifacts
+/cache
+/typechain
+/typechain-types
+/coverage
+/coverage.json
+/.nyc_output
+.openzeppelin/
+.deps/
+.build-info/
+
+# Node dependencies
+/node_modules
+/frontend/node_modules
+/.pnp
+.pnp.js
+
+# Build output
+/frontend/dist
+/frontend/build
+/dist
+/build
+
+# Environment variables & keys
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.secret
+*.key
+*.pem
+
+# IDEs & System
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.suo
+*.sw?
