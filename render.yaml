@@ -1,0 +1,23 @@
+services:
+  - type: worker
+    name: taskflow-agent-runner
+    runtime: python
+    buildCommand: pip install -r agent/requirements.txt
+    startCommand: python agent/runner.py
+    envVars:
+      - key: MANTLE_RPC
+        value: https://rpc.sepolia.mantle.xyz
+      - key: AGENT_PRIVATE_KEY
+        sync: false
+      - key: AGENT_ADDRESS
+        sync: false
+      - key: TASK_REGISTRY
+        sync: false
+      - key: AGENT_REGISTRY
+        sync: false
+      - key: TREASURY
+        sync: false
+      - key: POLL_INTERVAL
+        value: 120
+      - key: MIN_BOUNTY
+        value: 0
