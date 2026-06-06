@@ -41,10 +41,18 @@ MIN_BOUNTY = int(os.getenv("MIN_BOUNTY", "0"))  # minimum bounty in wei
 TASK_REGISTRY_ABI = json.loads(os.getenv("TASK_REGISTRY_ABI", """[
   {"constant":true,"inputs":[],"name":"taskCounter","outputs":[{"name":"","type":"uint256"}],"type":"function"},
   {"constant":true,"inputs":[{"name":"taskId","type":"uint256"}],"name":"getTask","outputs":[
-    {"name":"id","type":"uint256"},{"name":"creator","type":"address"},{"name":"assignee","type":"address"},
-    {"name":"description","type":"string"},{"name":"successCriteria","type":"string"},
-    {"name":"bountyAmount","type":"uint256"},{"name":"deadline","type":"uint256"},
-    {"name":"status","type":"uint8"},{"name":"proofHash","type":"string"},{"name":"paymentReleased","type":"bool"}
+    {"name":"","type":"tuple","components":[
+      {"name":"id","type":"uint256"},
+      {"name":"creator","type":"address"},
+      {"name":"assignee","type":"address"},
+      {"name":"description","type":"string"},
+      {"name":"successCriteria","type":"string"},
+      {"name":"bountyAmount","type":"uint256"},
+      {"name":"deadline","type":"uint256"},
+      {"name":"status","type":"uint8"},
+      {"name":"proofHash","type":"string"},
+      {"name":"paymentReleased","type":"bool"}
+    ]}
   ],"type":"function"},
   {"constant":false,"inputs":[{"name":"taskId","type":"uint256"}],"name":"assignTask","outputs":[],"type":"function"},
   {"constant":false,"inputs":[{"name":"taskId","type":"uint256"},{"name":"proofHash","type":"string"}],"name":"submitProof","outputs":[],"type":"function"},
