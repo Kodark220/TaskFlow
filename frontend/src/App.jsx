@@ -425,7 +425,11 @@ function Dashboard() {
 
       if (hasChainData) {
         setTasks(chainTasks)
-        setAgents(chainAgents || [])
+        const mockAgents = generateDemoData().agents
+        const activeChainAgents = chainAgents || []
+        const combinedAgents = [...activeChainAgents, ...mockAgents.slice(activeChainAgents.length)]
+        setAgents(combinedAgents)
+
         setFeed(chainEvents || [])
         // Build payments from completed tasks
         const chainPayments = chainTasks
