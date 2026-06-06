@@ -420,8 +420,8 @@ function Dashboard() {
 
       if (cancelled) return
 
-      // If we got real data with actual entries, use it
-      const hasChainData = chainTasks && chainTasks.length > 0
+      // If we successfully fetched data from the blockchain (even if empty), use it
+      const hasChainData = chainTasks !== null
 
       if (hasChainData) {
         setTasks(chainTasks)
