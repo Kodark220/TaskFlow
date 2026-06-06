@@ -185,17 +185,17 @@ class AgentPayrollRunner:
     def send_transaction(self, contract_fn, value=0) -> Optional[str]:
         """Build, sign, and send a transaction. Returns tx hash."""
         try:
-            # Let Web3.py estimate gas and set fee parameters dynamically
+            # Fetch current transaction count dynamically to avoid nonce mismatch
+            current_nonce = self.w3.eth.get_transaction_count(self.address, 'pending')
             tx = contract_fn.build_transaction({
                 "from": self.address,
                 "value": value,
-                "nonce": self.nonce,
+                "nonce": current_nonce,
                 "chainId": self.chain_id,
             })
             
             signed = self.account.sign_transaction(tx)
             tx_hash = self.w3.eth.send_raw_transaction(signed.raw_transaction)
-            self.nonce += 1
 
             log.info(f"   TX sent: {tx_hash.hex()}")
             receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash, timeout=120)
