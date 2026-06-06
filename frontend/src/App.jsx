@@ -480,16 +480,14 @@ function Dashboard() {
 
     loadChainData()
 
-    // Live feed: poll for new events every 15s if chain, or generate fake events if demo
+    // Live feed: poll and reload all chain data every 12s if chain, or generate fake events if demo
     const iv = setInterval(() => {
       if (dataSource === 'chain') {
-        fetchRecentEvents().then(events => {
-          if (events && events.length > 0) setFeed(events)
-        })
+        loadChainData()
       } else {
         setFeed(p => [generateRandomEvent(), ...p].slice(0, 50))
       }
-    }, dataSource === 'chain' ? 15000 : 4000)
+    }, dataSource === 'chain' ? 12000 : 4000)
 
     return () => { cancelled = true; clearInterval(iv) }
   }, [isConnected, bypassWallet, dataSource, refreshKey])

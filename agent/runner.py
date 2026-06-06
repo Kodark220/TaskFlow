@@ -14,7 +14,10 @@ import threading
 from typing import Optional
 from datetime import datetime
 from flask import Flask
+from dotenv import load_dotenv
 
+# Load .env file if present
+load_dotenv()
 
 # Web3
 from web3 import Web3
