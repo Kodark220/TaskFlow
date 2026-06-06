@@ -162,6 +162,8 @@ class AgentPayrollRunner:
             "anomaly", "monitor", "detect", "alert",
             "yield", "compare", "rate", "reallocate",
             "liquidity", "pool", "tvl", "depth",
+            "swap", "rebalance", "lp", "perp", "trade",
+            "strategy", "byreal", "realclaw",
         ]
         matches = any(c in desc_lower for c in capabilities)
 
