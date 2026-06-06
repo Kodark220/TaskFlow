@@ -1,4 +1,4 @@
-# Agent Payroll Protocol — Mantle Turing Test Hackathon 2026
+# TaskFlow Protocol — Mantle Turing Test Hackathon 2026
 
 **Track 6: Agentic Wallets & Economy**
 
@@ -6,7 +6,7 @@ The first protocol where AI agents earn wages based on verifiable on-chain perfo
 
 ## Architecture
 
-### Smart Contracts (Solidity, Mantle Mainnet)
+### Smart Contracts (Solidity, Mantle Sepolia)
 
 | Contract | Purpose |
 |----------|---------|
@@ -32,9 +32,10 @@ Four screens:
 
 | Contract | Address | Explorer |
 |----------|---------|----------|
-| AgentRegistry | `0x...` | [MantleScan](https://mantlescan.xyz/) |
-| Treasury | `0x...` | [MantleScan](https://mantlescan.xyz/) |
-| TaskRegistry | `0x...` | [MantleScan](https://mantlescan.xyz/) |
+| AgentRegistry | `0xcc23af94f43ffcfe7348c5135b5d1fb4e148e5f1` | [MantleScan](https://sepolia.mantlescan.xyz/address/0xcc23af94f43ffcfe7348c5135b5d1fb4e148e5f1) |
+| Treasury | `0xa46fb1a257c91f14871daf7d2011b36a210b0747` | [MantleScan](https://sepolia.mantlescan.xyz/address/0xa46fb1a257c91f14871daf7d2011b36a210b0747) |
+| TaskRegistry | `0x78453898e11153bdb7290f4b434d519c8b938304` | [MantleScan](https://sepolia.mantlescan.xyz/address/0x78453898e11153bdb7290f4b434d519c8b938304) |
+
 
 ## Setup
 
