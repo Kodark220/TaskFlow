@@ -174,7 +174,7 @@ function CustomConnectButton() {
 
 // ─── Config ───
 const config = getDefaultConfig({
-  appName: 'Agent Payroll Protocol',
+  appName: 'TaskFlow',
   projectId: 'agent-payroll-demo',
   chains: [mantleSepolia],
 })
@@ -277,7 +277,7 @@ function HeroSection({ onLaunchApp }) {
         {/* Brand Logo */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
           style={{ marginBottom: 24, display: 'flex', justifyContent: 'center' }}>
-          <img src="/favicon.png" alt="Agent Payroll Logo" style={{ width: 80, height: 80, borderRadius: 12, border: `1px solid ${C.border}`, boxShadow: '0 8px 32px rgba(255,255,255,0.05)' }} />
+          <img src="/favicon.png" alt="TaskFlow Logo" style={{ width: 80, height: 80, borderRadius: 12, border: `1px solid ${C.border}`, boxShadow: '0 8px 32px rgba(255,255,255,0.05)' }} />
         </motion.div>
 
         {/* Badge */}
@@ -528,10 +528,10 @@ function Dashboard() {
         }}>
         <div style={{ display: 'flex', alignItems: 'center', height: 60, padding: '0 24px', gap: 14, maxWidth: 1280, margin: '0 auto' }}>
           <div style={{ width: 32, height: 32, borderRadius: 6, overflow: 'hidden', border: `1px solid ${C.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img src="/favicon.png" alt="Agent Payroll" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src="/favicon.png" alt="TaskFlow" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           <div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: C.text, lineHeight: 1.2 }}>Agent Payroll</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: C.text, lineHeight: 1.2 }}>TaskFlow</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
               <GlowDot color={dataSource === 'chain' ? C.emerald : C.amber} size={6} />
               <span style={{ fontSize: 10, color: C.textMuted, fontWeight: 500 }}>
