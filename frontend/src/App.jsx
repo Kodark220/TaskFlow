@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ConnectButton, RainbowKitProvider, getDefaultConfig, useConnectModal } from '@rainbow-me/rainbowkit'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  ClipboardList, Activity, Wallet, Bot,
+  ClipboardList, ClipboardCheck, Activity, Wallet, Bot,
   AlertTriangle, TrendingUp, Droplets, Zap, CheckCircle2,
   Clock, Search, ArrowUpRight, Coins, Shield,
   Menu, X, ExternalLink, MoveRight, Sparkles,
@@ -504,7 +504,7 @@ function Dashboard() {
     { label: 'Open Tasks', val: tasks.filter(t => t.status === 'Open').length, icon: ClipboardList, color: C.primary },
     { label: 'Active Agents', val: agents.filter(a => a.active).length, icon: Bot, color: C.amber },
     { label: 'Total Paid', val: totalPaid, suffix: ' MNT', icon: Coins, color: C.emerald },
-    { label: 'Completed', val: tasks.filter(t => t.status === 'Completed').length, icon: Shield, color: C.blue },
+    { label: 'Completed', val: tasks.filter(t => t.status === 'Completed').length, icon: ClipboardCheck, color: C.blue },
   ]
 
   return (
