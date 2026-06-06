@@ -18,7 +18,11 @@ from flask import Flask
 
 # Web3
 from web3 import Web3
-from web3.middleware import geth_poa_middleware
+try:
+    from web3.middleware import ExtraDataToPOAMiddleware as geth_poa_middleware
+except ImportError:
+    from web3.middleware import geth_poa_middleware
+
 
 # --- Configuration ---
 RPC_URL = os.getenv("MANTLE_RPC", "https://rpc.sepolia.mantle.xyz")
