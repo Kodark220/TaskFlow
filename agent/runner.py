@@ -179,27 +179,30 @@ class AgentPayrollRunner:
 
     def send_transaction(self, contract_fn, value=0) -> Optional[str]:
         """Build, sign, and send a transaction. Returns tx hash."""
-        tx = contract_fn.build_transaction({
-            "from": self.address,
-            "value": value,
-            "nonce": self.nonce,
-            "gas": 300_000,
-            "maxFeePerGas": self.w3.eth.gas_price * 2,
-            "maxPriorityFeePerGas": self.w3.eth.gas_price // 2,
-            "chainId": self.chain_id,
-        })
-        signed = self.account.sign_transaction(tx)
-        tx_hash = self.w3.eth.send_raw_transaction(signed.raw_transaction)
-        self.nonce += 1
+        try:
+            # Let Web3.py estimate gas and set fee parameters dynamically
+            tx = contract_fn.build_transaction({
+                "from": self.address,
+                "value": value,
+                "nonce": self.nonce,
+                "chainId": self.chain_id,
+            })
+            
+            signed = self.account.sign_transaction(tx)
+            tx_hash = self.w3.eth.send_raw_transaction(signed.raw_transaction)
+            self.nonce += 1
 
-        log.info(f"   TX sent: {tx_hash.hex()}")
-        receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash, timeout=120)
+            log.info(f"   TX sent: {tx_hash.hex()}")
+            receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash, timeout=120)
 
-        if receipt["status"] == 1:
-            log.info(f"   ✅ Confirmed: block {receipt['blockNumber']}")
-            return tx_hash.hex()
-        else:
-            log.error(f"   ❌ Transaction failed: {tx_hash.hex()}")
+            if receipt["status"] == 1:
+                log.info(f"   ✅ Confirmed: block {receipt['blockNumber']}")
+                return tx_hash.hex()
+            else:
+                log.error(f"   ❌ Transaction failed: {tx_hash.hex()}")
+                return None
+        except Exception as e:
+            log.error(f"   ❌ Error building/sending transaction: {e}")
             return None
 
     def claim_task(self, task_id: int) -> bool:
