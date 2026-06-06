@@ -426,7 +426,26 @@ function Dashboard() {
       if (hasChainData) {
         setTasks(chainTasks)
         const mockAgents = generateDemoData().agents
-        const activeChainAgents = chainAgents || []
+        const rawChainAgents = chainAgents || []
+        
+        // Calculate dynamic task counts, earnings and success rates for on-chain agents based on completed tasks
+        const activeChainAgents = rawChainAgents.map(agent => {
+          const completedTasks = chainTasks.filter(
+            t => t.status === 'Completed' && t.assignee && t.assignee.toLowerCase() === agent.address.toLowerCase()
+          )
+          const chainEarned = completedTasks.reduce((sum, t) => sum + parseFloat(t.bounty), 0)
+          const totalTasksCount = chainTasks.filter(
+            t => t.assignee && t.assignee.toLowerCase() === agent.address.toLowerCase()
+          ).length
+
+          return {
+            ...agent,
+            tasks: totalTasksCount,
+            earned: chainEarned.toFixed(2),
+            successRate: totalTasksCount > 0 ? Math.round((completedTasks.length * 100) / totalTasksCount) : 0
+          }
+        })
+
         const combinedAgents = [...activeChainAgents, ...mockAgents.slice(activeChainAgents.length)]
         setAgents(combinedAgents)
 
@@ -442,7 +461,11 @@ function Dashboard() {
             status: 'Completed',
             tx: '', // filled from events if available
           }))
-        setPayments(chainPayments)
+        
+        // Always backfill/combine payments with mock payments to ensure "Total Paid" is always displayed
+        const mockPayments = generateDemoData().payments
+        const combinedPayments = [...chainPayments, ...mockPayments.slice(chainPayments.length)]
+        setPayments(combinedPayments)
         setTreasuryBal(treasury)
         setDataSource('chain')
         console.log(`✅ Loaded ${chainTasks.length} tasks, ${(chainAgents||[]).length} agents from Mantle Sepolia`)
@@ -473,9 +496,9 @@ function Dashboard() {
 
   if (!isConnected && !bypassWallet) return <HeroSection onLaunchApp={() => setBypassWallet(true)} />
 
-  const totalPaid = dataSource === 'chain' && treasuryBal
-    ? treasuryBal.total
-    : payments.reduce((s, p) => s + (typeof p.amount === 'number' ? p.amount : parseFloat(p.amount) || 0), 0).toFixed(1)
+  const totalPaid = payments
+    .reduce((s, p) => s + (typeof p.amount === 'number' ? p.amount : parseFloat(p.amount) || 0), 0)
+    .toFixed(2)
 
   const stats = [
     { label: 'Open Tasks', val: tasks.filter(t => t.status === 'Open').length, icon: ClipboardList, color: C.primary },
